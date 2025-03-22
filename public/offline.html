@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Bronify - Offline</title>
+<style>
+  :root {
+    --primary: #1DB954;
+    --background: #000000;
+    --foreground: #ffffff;
+    --safe-area-top: env(safe-area-inset-top, 0px);
+    --safe-area-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: var(--background);
+    color: var(--foreground);
+    margin: 0;
+    padding: env(safe-area-inset-top, 0px) env(safe-area-inset-right, 0px) env(safe-area-inset-bottom, 0px) env(safe-area-inset-left, 0px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    text-align: center;
+  }
+  
+  .container {
+    max-width: 90%;
+    padding: 20px;
+  }
+  
+  .logo {
+    width: 120px;
+    height: 120px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    animation: pulse 2s infinite ease-in-out;
+  }
+  
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+  
+  h1 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    color: var(--primary);
+  }
+  
+  p {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    color: #ccc;
+  }
+  
+  button {
+    background-color: var(--primary);
+    color: var(--foreground);
+    border: none;
+    padding: 14px 32px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+  }
+  
+  button:hover {
+    opacity: 0.9;
+  }
+  
+  .cached-content {
+    margin-top: 30px;
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  .cached-title {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: var(--primary);
+  }
+  
+  .cached-item {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    text-align: left;
+  }
+  
+  .cached-item-icon {
+    margin-right: 10px;
+    font-size: 20px;
+  }
+  
+  .cached-item-title {
+    font-weight: bold;
+    font-size: 14px;
+  }
+  
+  .cached-item-subtitle {
+    font-size: 12px;
+    color: #aaa;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <img src="/app-icon-192.png" alt="Bronify Logo" class="logo">
+  <h1>You're Offline</h1>
+  <p>Looks like you're not connected to the internet. Connect to continue enjoying the full Bronify experience.</p>
+  <button onclick="window.location.reload()">Try Again</button>
+  
+  <div class="cached-content" id="cached-content">
+    <h2 class="cached-title">Available Offline</h2>
+    <div id="cached-items">
+      <!-- Cached items will be populated here -->
+    </div>
+  </div>
+</div>
+
+<script>
+  // Check if there's any cached content available
+  if ('caches' in window) {
+    const cachedItemsContainer = document.getElementById('cached-items');
+    
+    // Sample cached items to display
+    const sampleItems = [
+      { type: '🎵', title: 'LeBronaissance', subtitle: 'Album' },
+      { type: '🎵', title: 'Dribble Up', subtitle: 'Track by LeBron James' },
+      { type: '🏀', title: 'Top LeBrons', subtitle: 'Image collection' }
+    ];
+    
+    // Create elements for each sample item
+    sampleItems.forEach(item => {
+      const itemElement = document.createElement('div');
+      itemElement.className = 'cached-item';
+      itemElement.innerHTML = `
+        <span class="cached-item-icon">${item.type}</span>
+        <div>
+          <div class="cached-item-title">${item.title}</div>
+          <div class="cached-item-subtitle">${item.subtitle}</div>
+        </div>
+      `;
+      cachedItemsContainer.appendChild(itemElement);
+    });
+  } else {
+    // If caches API is not supported, hide the cached content section
+    document.getElementById('cached-content').style.display = 'none';
+  }
+</script>
+</body>
+</html>
+

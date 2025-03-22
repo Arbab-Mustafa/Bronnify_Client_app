@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bronify App Icon Generator</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    h1 {
+      color: #1DB954;
+    }
+    canvas {
+      display: none;
+    }
+    .download-container {
+      margin-top: 20px;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+    .download-link {
+      display: block;
+      margin: 10px 0;
+      color: #1DB954;
+      text-decoration: none;
+    }
+    .download-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h1>Bronify App Icon Generator</h1>
+  <p>This tool generates app icons from the LeBron image for the Bronify PWA.</p>
+  
+  <canvas id="canvas"></canvas>
+  
+  <div id="download-container" class="download-container">
+    Generating icons...
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const canvas = document.getElementById('canvas');
+      const ctx = canvas.getContext('2d');
+      const downloadContainer = document.getElementById('download-container');
+      
+      // Load the source image
+      const img = new Image();
+      img.crossOrigin = "anonymous";
+      img.src = "/assets/images/app-icon.png";
+      
+      img.onload = () => {
+        // Generate 192x192 icon
+        canvas.width = 192;
+        canvas.height = 192;
+        ctx.drawImage(img, 0, 0, 192, 192);
+        const icon192 = canvas.toDataURL('image/png');
+        
+        // Generate 512x512 icon
+        canvas.width = 512;
+        canvas.height = 512;
+        ctx.drawImage(img, 0, 0, 512, 512);
+        const icon512 = canvas.toDataURL('image/png');
+        
+        // Display download links
+        downloadContainer.innerHTML = `
+          <p>Right-click on each link and select "Save link as..." to download the icons:</p>
+          <a href="${icon192}" download="app-icon-192.png" class="download-link">Download 192x192 icon</a>
+          <a href="${icon512}" download="app-icon-512.png" class="download-link">Download 512x512 icon</a>
+          <p>After downloading, place these files in the public folder of your project.</p>
+        `;
+      };
+      
+      img.onerror = () => {
+        downloadContainer.innerHTML = `
+          <p>Error loading the image. Please check the URL and try again.</p>
+        `;
+      };
+    });
+  </script>
+</body>
+</html>
+
