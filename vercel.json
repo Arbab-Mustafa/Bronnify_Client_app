@@ -6,7 +6,6 @@
       "use": "@vercel/next"
     }
   ],
-  "routes": [{ "src": "/(.*)", "dest": "/" }],
   "headers": [
     {
       "source": "/assets/audio/:path*",
@@ -17,5 +16,15 @@
         }
       ]
     }
-  ]
+  ],
+  "redirects": [
+    {
+      "source": "/old-route",
+      "destination": "/new-route",
+      "permanent": true
+    }
+  ],
+
+  "cleanUrls": true,
+  "trailingSlash": false
 }
