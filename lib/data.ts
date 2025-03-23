@@ -59,7 +59,7 @@ export const tracks: Track[] = [
     album: "Bron and Jerry",
     duration: 215,
     coverUrl: "/assets/album-covers/bron-and-jerry.jpg",
-    audioUrl: "/assets/audio/bron-and-jerry/broncic-dreams.mp3",
+    audioUrl: "/assets/bron-and-jerry/broncic-dreams.mp3",
   },
   {
     id: "43",
