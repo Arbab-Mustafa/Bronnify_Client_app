@@ -100,7 +100,7 @@ This will generate a static site in the `out` directory that can be deployed to 
 - Modify `/app/globals.css` to change the styling
 - Add your own media files to the `/public/assets` directory
 
-## Contributing
+## Contributing  
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
